@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400|Raleway:300,400,500');
+
+:root {
+  --spaceGray: #232b2b;
+  --lightGray: #cccccc;
+  --smoothGold: goldenrod;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--spaceGray);
+  color: var(--lightGray);
+  font-family: 'Lato';
+}
+
+header {
+  text-align: center;
+  margin-top: 50px;
+}
+
+span {
+  color: var(--smoothGold);
+}
+
+main {
+  width: 300px;
+  height: 200px;
+  margin: 100px auto;
+  border: 5px solid var(--smoothGold);
+  border-radius: 10px;
+  text-align: center;
+  padding: 20px;
+  animation: animate 2s linear infinite;
+}
+
+@keyframes animate {
+  0% {
+    box-shadow: 0 0 0 var(--lightGray);
+  }
+  50% {
+    box-shadow: 0 0 10px var(--lightGray);
+  }
+  100% {
+    box-shadow: 0 0 0 var(--lightGray);
+  }
+}
+
+main h3 {
+  letter-spacing: 1.5px;
+  line-height: 150%;
+}
+
+h4 {
+  text-align: center;
+  border-bottom: 5px solid var(--smoothGold);
+  padding-bottom: 40px;
+  width: 450px;
+  font-size: 2em;
+  margin: 0 auto;
+}
