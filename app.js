@@ -5,21 +5,26 @@ const express           = require('express'),
       cookieParser      = require('cookie-parser'),
       passport          = require('passport'),
       mongoose          = require('mongoose'),
+      flash             = require('connect-flash'),
       User              = require('./models/user.js'),
       app               = express(),
       path              = require('path'),
       port              = process.env.PORT || 3000;
 
+
+/* ======= ROUTE SETUP ============*/
 const indexRoute = require('./routes/index.js');
 
+/* ======= DATABASE SETUP ============*/
 mongoose.Promise = global.Promise;
 
 const databaseUri = 'mongodb://kenny:kenny@ds149974.mlab.com:49974/not-instagram';
 
-mongoose.connect(databaseUri, { useMongoClient: true })
+mongoose.connect(databaseUri)
       .then(() => console.log(`Database connected`))
       .catch(err => console.log(`Database connection error: ${err.message}`));
 
+/* ======= MIDDLEWARE SETUP ============*/      
 app.set("view engine", "ejs");
 
 app.use(bodyParser.json());
@@ -28,6 +33,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(methodOverride('_method'));
 app.use(cookieParser('secret'));
 
+/* ======= PASSPORT SETUP ============*/
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
