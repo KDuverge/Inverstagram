@@ -27,3 +27,16 @@
       </ul>
     </div>    
   </nav>
+
+<div class="message-container">
+  <% if(error && error.length > 0) {%>
+    <div class="message-danger">
+      <%= error %>
+    </div>
+  <% } %>
+  <% if(success && success.length > 0) {%>
+    <div class="message-good">
+      <%= success %>
+    </div>
+  <% } %>
+</div>

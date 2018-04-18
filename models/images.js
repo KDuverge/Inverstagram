@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 const imageSchema = new mongoose.Schema({
   name: String,
   image: String,
+  likes: {
+    type: Number,
+    default: 0
+  },
   description: String,
   author: {
     id: {

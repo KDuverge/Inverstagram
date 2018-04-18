@@ -9,9 +9,8 @@
         <p><%= pic.description %></p>
       </div>
       <div class="icons">
-        <a class="icon-btn heart-btn" href="#"><i class="fas fa-heart"></i></a>
+        <a class="icon-btn heart-btn" href="#"><%= pic.likes %><i class="fas fa-heart"></i></a>
         <a class="icon-btn comment-btn" href="/gallery/<%= pic._id %>"><i class="fas fa-comment"></i></a>
-        
       </div>
     </div>
   <% }) %>

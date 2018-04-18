@@ -2,13 +2,13 @@
 
 <div class="form-setup">
   <form action="/gallery" method="POST" enctype="multipart/form-data">
-    <label for="image">Image</label>
-    <input type="file" name="image" placeholder="Image" accept="image/*"  required>
+    <label for="image" id="image-label">Image</label>
+    <input type="file" name="image" placeholder="Image" accept="image/*" id="form-browse"  required>
     <label for="name">Name</label>
-    <input type="text" name="gram[name]" placeholder="Name" id="img-input" required><br>
+    <input type="text" name="gram[name]" placeholder="Name" id="img-input" class="form-input" required><br>
     <label for="description">Description</label>
-    <input type="text" name="gram[description]" placeholder="Description" required><br>
-    <input type="submit" value="Submit">
+    <input type="text" name="gram[description]" placeholder="Description" class="form-input" required><br>
+    <input type="submit" value="Submit" id="form-submit">
   </form>
 </div>
 

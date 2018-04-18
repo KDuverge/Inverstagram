@@ -1,11 +1,13 @@
-const express = require("express"),
-      router  = express.Router({mergeParams: true}),
-      path    = require('path'),
-      multer = require('multer'),
-      Image   = require("../models/images"),
-      Comment = require("../models/comment"),
-      middleware = require("../middleware/middleware"),
-      cloudinary = require('cloudinary');
+const express     = require("express"),
+      router      = express.Router({mergeParams: true}),
+      path        = require('path'),
+      multer      = require('multer'),
+      Image       = require("../models/images"),
+      Comment     = require("../models/comment"),
+      middleware  = require("../middleware/middleware"),
+      cloudinary  = require('cloudinary');
+
+                    require('dotenv').config();
 
 const storage = multer.diskStorage({
   filename: (req, file, callback) => {
@@ -22,11 +24,14 @@ const imageFilter = (req, file, cb) => {
 
 const upload = multer({ storage: storage, fileFilter: imageFilter})
 
+
 cloudinary.config({ 
   cloud_name: 'duyxkp4px', 
-  api_key: process.env.CLOUDINARY_KEY, 
-  api_secret: process.env.CLOUDINARY_SECRET
+  api_key: process.env.CLOUD_KEY,
+  api_secret: process.env.CLOUD_SECRET
 });
+
+// IMAGE ROUTES //
 
 router.get("/", middleware.isLoggedIn, (req, res) => {
   res.render("upload");
@@ -43,6 +48,7 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), (req, res) => {
       if (err) {
         return res.redirect('back');
       }
+      req.flash("success", "Successfully added image");
       res.redirect('/gallery/' + picture.id);
     });
   });
@@ -57,42 +63,6 @@ router.get("/:picId", (req, res) => {
     }
   })
 });
-
-router.post("/:picId/comments", middleware.isLoggedIn, (req, res) => {
-  Image.findById(req.params.picId, (err, commentPic) => {
-    if(err) {
-      res.redirect("/gallery");
-    } else {
-      Comment.create(req.body.comment, function(err, comment){
-        if(err){
-            console.log(err);
-        } else {
-          //Add username and ID to comment
-          comment.author.id = req.user._id;
-          comment.author.username = req.user.username;
-          comment.save();
-          //Save Comment
-          commentPic.comments.push(comment);
-          commentPic.save();        
-          // req.flash("success", "Successfully added comment");
-          res.redirect("/gallery/" + commentPic._id);
-        }
-      });
-    }
-  })
-})
-
-router.delete("/:picId/:comment_id", middleware.checkCommentsOwnership, (req, res) => {
-  Comment.findByIdAndRemove(req.params.comment_id, function(err){
-    if(err){
-        res.redirect("back");
-        console.log(err);
-    } else {
-        // req.flash("success", "Comment deleted");
-        res.redirect("/gallery/" + req.params.id);
-    }
-});
-})
 
 router.delete("/:picId", (req, res) => {
   Image.findByIdAndRemove(req.params.picId, (err, deletePic) => {
@@ -119,5 +89,42 @@ router.put("/:id", middleware.checkImageOwnership, (req, res) => {
     }
   })
 })
+
+// COMMENT ROUTES //
+
+router.post("/:picId/comments", middleware.isLoggedIn, (req, res) => {
+  Image.findById(req.params.picId, (err, commentPic) => {
+    if(err) {
+      res.redirect("/gallery");
+    } else {
+      Comment.create(req.body.comment, function(err, comment){
+        if(err){
+            console.log(err);
+        } else {
+          comment.author.id = req.user._id;
+          comment.author.username = req.user.username;
+          comment.save();
+          commentPic.comments.push(comment);
+          commentPic.save();        
+          req.flash("success", "Successfully added comment");
+          res.redirect("/gallery/" + commentPic._id);
+        }
+      });
+    }
+  })
+})
+
+router.delete("/:picId/:comment_id", middleware.checkCommentsOwnership, (req, res) => {
+  Comment.findByIdAndRemove(req.params.comment_id, function(err){
+    if(err){
+        res.redirect("back");
+    } else {
+        req.flash("success", "Comment deleted");
+        res.redirect("/gallery/" + req.params.picId);
+    }
+});
+})
+
+
 
 module.exports = router;

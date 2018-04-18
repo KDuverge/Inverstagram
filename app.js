@@ -16,14 +16,13 @@ const express           = require('express'),
 
 /* ======= ROUTE SETUP ============*/
 const indexRoute = require('./routes/index'),
-      uploadRoute = require('./routes/upload');
+      uploadRoute = require('./routes/upload'),
+      apiRoute = require('./routes/api');
 
 /* ======= DATABASE SETUP ============*/
 mongoose.Promise = global.Promise;
 
-const databaseUri = 'mongodb://kenny:kenny@ds149974.mlab.com:49974/not-instagram';
-
-mongoose.connect(databaseUri)
+mongoose.connect(process.env.DATABASE_URI)
     .then(() => console.log(`Database connected`))
     .catch(err => console.log(`Database connection error: ${err.message}`));
 
@@ -59,5 +58,6 @@ app.use(function(req, res, next) {
 
 app.use("/", indexRoute);
 app.use("/gallery", uploadRoute);
+app.use("/api/image", apiRoute);
 
 app.listen(port, (req, res) => console.log(`Server started on port ${port}...`));

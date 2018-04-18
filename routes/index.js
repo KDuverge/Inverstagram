@@ -25,9 +25,11 @@ router.post("/register", (req, res) => {
   const newUser = new User({username});
   User.register(newUser, password, (err, user) => {
       if(err){
+        req.flash("error", err.message);
         return res.render("register");
       }
       passport.authenticate("local")(req, res, function(){
+        req.flash("success", "Successfully Signed Up! Nice to meet you " + req.body.username);
         res.redirect("/"); 
     });
   });
@@ -42,12 +44,15 @@ router.post("/login", passport.authenticate("local",
   {
     successRedirect: "/",
     failureRedirect: "/login",
+    failureFlash: true,
+    successFlash: 'Welcome to !nverstagram!'
   }), function(req, res){
 });
 
 /*HANDLE LOGGOUT */
 router.get("/logout", function(req, res){
   req.logOut();
+  req.flash("success", "See you later!");
   res.redirect("/");
 });
 

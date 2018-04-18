@@ -5,15 +5,16 @@
     <img class="show-img" src="<%= galleryImage.image %>" alt="">
     <div class="show-content">
       <h4 class="show-title"><%= galleryImage.name %></h4>
-      <p><%= galleryImage.description %> - <em><%= galleryImage.author.username %></em></p>
+      <p><%= galleryImage.description %> - <strong class="show-name"><%= galleryImage.author.username %></strong></p>
     </div>
     <div class="show-icons">
       <a class="show-icon" href="#"><i class="fas fa-heart"></i></a>
       <a class="show-icon" href="/gallery/<%= galleryImage._id %>/edit">Edit</a>
-      <!-- <form action="/gallery/<%= galleryImage._id %>/?_method=DELETE" method="POST">
-        <input type="submit" value="DELETE" class="show-icon">
-      </form> -->
-      
+      <% if(currentUser && galleryImage.author.id.equals(currentUser._id)) { %>
+        <form class="show-form" action="/gallery/<%= galleryImage._id %>/?_method=DELETE" method="POST">
+          <input type="submit" value="Delete" class="show-delete">
+        </form>
+      <% } %>
     </div>
     <div class="show-comments">
       <% galleryImage.comments.forEach(function(comment) { %>
