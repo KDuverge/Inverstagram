@@ -20,11 +20,9 @@ const indexRoute = require('./routes/index'),
       apiRoute = require('./routes/api');
 
 /* ======= DATABASE SETUP ============*/
-mongoose.Promise = global.Promise;
 
-mongoose.connect(process.env.DATABASE_URI)
-    .then(() => console.log(`Database connected`))
-    .catch(err => console.log(`Database connection error: ${err.message}`));
+mongoose.connect(process.env.DATABASE_URI);
+
 
 /* ======= MIDDLEWARE SETUP ============*/      
 app.set("view engine", "ejs");
