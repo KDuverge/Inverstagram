@@ -1,9 +1,21 @@
 <% include partials/header %>
 
-<h1>!nstagram</h1>
-
-<a href="/register">Regsiter Button</a>
-<a href="/login">Login</a>
+<div class="gallery">
+  <% foundImg.forEach(pic => { %>
+    <div class="card">
+      <img class="card-img" src="<%= pic.image %>" alt="">
+      <h4 class="card-title"><%= pic.name %></h4>
+      <div class="card-content">
+        <p><%= pic.description %></p>
+      </div>
+      <div class="icons">
+        <a class="icon-btn heart-btn" href="#"><i class="fas fa-heart"></i></a>
+        <a class="icon-btn comment-btn" href="/gallery/<%= pic._id %>"><i class="fas fa-comment"></i></a>
+        
+      </div>
+    </div>
+  <% }) %>
+</div>
 
 <% include partials/footer %>
 

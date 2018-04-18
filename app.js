@@ -6,14 +6,17 @@ const express           = require('express'),
       passport          = require('passport'),
       mongoose          = require('mongoose'),
       flash             = require('connect-flash'),
-      User              = require('./models/user.js'),
+      User              = require('./models/user'),
+      Comment           = require('./models/comment'),
+      Image             = require('./models/images'),
       app               = express(),
       path              = require('path'),
       port              = process.env.PORT || 3000;
 
 
 /* ======= ROUTE SETUP ============*/
-const indexRoute = require('./routes/index.js');
+const indexRoute = require('./routes/index'),
+      uploadRoute = require('./routes/upload');
 
 /* ======= DATABASE SETUP ============*/
 mongoose.Promise = global.Promise;
@@ -21,8 +24,8 @@ mongoose.Promise = global.Promise;
 const databaseUri = 'mongodb://kenny:kenny@ds149974.mlab.com:49974/not-instagram';
 
 mongoose.connect(databaseUri)
-      .then(() => console.log(`Database connected`))
-      .catch(err => console.log(`Database connection error: ${err.message}`));
+    .then(() => console.log(`Database connected`))
+    .catch(err => console.log(`Database connection error: ${err.message}`));
 
 /* ======= MIDDLEWARE SETUP ============*/      
 app.set("view engine", "ejs");
@@ -33,6 +36,12 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(methodOverride('_method'));
 app.use(cookieParser('secret'));
 
+app.use(require("express-session")({
+  secret: "This is not instagram",
+  resave: false,
+  saveUninitialized: false
+}));
+
 /* ======= PASSPORT SETUP ============*/
 app.use(flash());
 app.use(passport.initialize());
@@ -41,13 +50,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.use(require("express-session")({
-      secret: "This is not instagram",
-      resave: false,
-      saveUninitialized: false
-}));
-
-app.use((req, res, next) => {
+app.use(function(req, res, next) {
    res.locals.currentUser = req.user;
    res.locals.success = req.flash('success');
    res.locals.error = req.flash('error');
@@ -55,5 +58,6 @@ app.use((req, res, next) => {
 });
 
 app.use("/", indexRoute);
+app.use("/gallery", uploadRoute);
 
 app.listen(port, (req, res) => console.log(`Server started on port ${port}...`));

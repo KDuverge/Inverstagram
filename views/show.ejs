@@ -1,0 +1,39 @@
+<% include partials/header %>
+
+<div class="show-gallery">
+  <div class="show-card">
+    <img class="show-img" src="<%= galleryImage.image %>" alt="">
+    <div class="show-content">
+      <h4 class="show-title"><%= galleryImage.name %></h4>
+      <p><%= galleryImage.description %> - <em><%= galleryImage.author.username %></em></p>
+    </div>
+    <div class="show-icons">
+      <a class="show-icon" href="#"><i class="fas fa-heart"></i></a>
+      <a class="show-icon" href="/gallery/<%= galleryImage._id %>/edit">Edit</a>
+      <!-- <form action="/gallery/<%= galleryImage._id %>/?_method=DELETE" method="POST">
+        <input type="submit" value="DELETE" class="show-icon">
+      </form> -->
+      
+    </div>
+    <div class="show-comments">
+      <% galleryImage.comments.forEach(function(comment) { %>
+        <p class="comment-par">
+          <strong class="comment-auth"><%= comment.author.username %></strong> 
+          - <%= comment.text %>
+          <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
+            <form class="deleteForm" action="/gallery/<%= galleryImage._id %>/<%= comment._id %>?_method=DELETE" method="POST">
+              <input type="submit" class="delete" value="Delete">
+            </form>
+            <% } %> 
+      <% }) %> 
+      <div class="form-comment">
+        <form action="/gallery/<%= galleryImage._id %>/comments" method="POST">
+          <input type="text" name="comment[text]" placeholder="Comment" id="comment-input">
+          <input type="submit" value="" hidden>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% include partials/footer %>

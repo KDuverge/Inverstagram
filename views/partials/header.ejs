@@ -4,7 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Starter Project</title>
+  <title>!nverstagram</title>
   <link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
+
+
+  <nav>
+    <div class="logo">
+      <h1><a href="/"><span id="first-logo">!nver</span>stagram</a></h1>
+    </div>  
+    <div class="right-nav">
+      <ul>
+        <% if(!currentUser){ %>
+          <li><a class="nav-btn" href="/login">Login</a></li>
+          <li><a class="nav-btn" href="/register">Sign Up</a></li>
+        <% } else { %>
+          <li><a class="nav-btn" href="/gallery"><i class="fas fa-camera-retro"></i></a></li>
+          <li><a class="nav-btn" href="">Signed in as <strong id="username"><%= currentUser.username %></strong></a></li>
+          <li><a class="nav-btn" href="/logout">Logout</a></li>
+        <% }; %>
+      </ul>
+    </div>    
+  </nav>

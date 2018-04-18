@@ -1,13 +1,20 @@
 const express = require('express'),
       passport  = require('passport'),
+      Image    = require("../models/images");
       User    = require("../models/user.js");
       router  = express.Router();
 
 router.get("/", (req, res) => { // Show all images
-    res.render("index")
+   Image.find({}, (err, foundImg) => {
+     if(err) {
+       console.log(err);
+     } else {
+      res.render("index", {foundImg});
+     }
+   })
 });
 
-/* HANDLE REGISTER*/
+/* HANDLE REGISTER */
 
 router.get("/register", (req, res) => {
   res.render("register");
@@ -18,7 +25,6 @@ router.post("/register", (req, res) => {
   const newUser = new User({username});
   User.register(newUser, password, (err, user) => {
       if(err){
-        console.log(err);
         return res.render("register");
       }
       passport.authenticate("local")(req, res, function(){
@@ -36,9 +42,13 @@ router.post("/login", passport.authenticate("local",
   {
     successRedirect: "/",
     failureRedirect: "/login",
-    failureFlash: true,
-    successFlash: 'Welcome to !nstagram'
   }), function(req, res){
+});
+
+/*HANDLE LOGGOUT */
+router.get("/logout", function(req, res){
+  req.logOut();
+  res.redirect("/");
 });
 
 
