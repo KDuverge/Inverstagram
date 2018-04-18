@@ -336,7 +336,7 @@ label {
   font-size: 14px;
   display: block;
   border: 2px solid var(--brightRed);
-  background: rgb(250, 17, 17);
+  background-color: var(--brightRed);
   color: var(--lightGray);
   border-radius: 5px;
   padding: 5px 10px;
