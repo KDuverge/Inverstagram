@@ -22,7 +22,7 @@
           - <%= comment.text %>
           <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
             <form class="deleteForm" action="/gallery/<%= galleryImage._id %>/<%= comment._id %>?_method=DELETE" method="POST">
-              <input type="submit" class="delete" value="Delete">
+              <input type="submit" class="show-delete" value="Delete">
             </form>
             <% } %> 
       <% }) %> 

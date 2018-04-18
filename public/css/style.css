@@ -285,7 +285,7 @@ label {
   display: inline-block;
   background: var(--spaceGray);
 }
-.show-icon:hover {
+.show-icon:hover, .show-delete:hover {
   background-color: var(--smoothGold);
   color: var(--spaceGray);
 }
@@ -330,19 +330,33 @@ label {
   position: relative;
   cursor: pointer;
 }
-
+/* 
 .delete {
-  float: right;
+
   font-size: 14px;
   border: 2px solid var(--smoothGold);
   background-color: var(--spaceGray);
   color: var(--lightGray);
   border-radius: 5px;
   padding: 5px 10px;
+
+  cursor: pointer;
+} */
+.show-delete {
+  float: right;
   top: -40px;
   right: 5px;
   position: absolute;
+  color: var(--lightGray);
+  text-decoration: none;
+  padding: 4px 15px;
+  transition: all .5s ease;
+  font-size: 1em;
+  border: 2px solid var(--smoothGold);
   cursor: pointer;
+  border-radius: 5px;
+  margin: 5px;
+  background: none;
 }
 
 @media screen and (max-width: 1450px) {
