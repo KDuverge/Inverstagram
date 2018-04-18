@@ -334,8 +334,7 @@ label {
 .delete {
   float: right;
   font-size: 14px;
-  display: block;
-  border: 2px solid var(--brightRed);
+  border: 2px solid var(--smoothGold);
   background-color: var(--spaceGray);
   color: var(--lightGray);
   border-radius: 5px;
