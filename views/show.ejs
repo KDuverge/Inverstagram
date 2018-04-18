@@ -8,7 +8,6 @@
       <p><%= galleryImage.description %> - <strong class="show-name"><%= galleryImage.author.username %></strong></p>
     </div>
     <div class="show-icons">
-      <a class="show-icon" href="#"><i class="fas fa-heart"></i></a>
       <a class="show-icon" href="/gallery/<%= galleryImage._id %>/edit">Edit</a>
       <% if(currentUser && galleryImage.author.id.equals(currentUser._id)) { %>
         <form class="show-form" action="/gallery/<%= galleryImage._id %>/?_method=DELETE" method="POST">

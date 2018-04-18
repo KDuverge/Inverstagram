@@ -3,10 +3,10 @@
 <div class="form-setup">
   <form action="/gallery/<%= image._id %>/?_method=PUT" method="POST">
     <label for="name">Name</label>
-    <input type="text" name="gram[name]" placeholder="Name" value="<%= image.name %>"><br>
+    <input type="text" name="gram[name]" placeholder="Name" class="form-input" value="<%= image.name %>"><br>
     <label for="description">Description</label>
-    <input type="text" name="gram[description]" placeholder="Description" value="<%= image.description %>"><br>
-    <input type="submit" value="Submit">
+    <input type="text" name="gram[description]" class="form-input" placeholder="Description" value="<%= image.description %>"><br>
+    <input type="submit" value="Submit" id="form-submit">
   </form>
 </div>
 
