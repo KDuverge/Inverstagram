@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 const imageSchema = new mongoose.Schema({
   name: String,
   image: String,
+  heart: {
+    type: Boolean,
+    default: false
+  },
   likes: {
     type: Number,
     default: 0
