@@ -329,6 +329,7 @@ label {
 .deleteForm {
   position: relative;
   cursor: pointer;
+  padding: 8px;
 }
 /* 
 .delete {
@@ -355,7 +356,7 @@ label {
   border: 2px solid var(--smoothGold);
   cursor: pointer;
   border-radius: 5px;
-  margin: 5px;
+  margin: 30px 10px;
   background: none;
 }
 
@@ -422,6 +423,7 @@ label {
     margin: 10px auto;
     display: grid;
     grid-template-columns: 1fr;
+    border-bottom: none;
   }
   .show-img {
     width: 100%;
@@ -435,6 +437,7 @@ label {
     grid-column: 1 / 2;
     grid-row: 5 / 6;
     margin: 10px;
+    padding-left: 10px;
   }
 
   .show-content p {
@@ -464,7 +467,7 @@ label {
   }
 
   .show-comments {
-    grid-row: 6 / span 3;
+    grid-row: 6 / span 6;
     grid-column: 1 / 2;
     padding: 10px;
   }
