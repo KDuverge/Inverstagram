@@ -181,6 +181,7 @@ label {
   margin: 10px;
   border: 2px solid var(--smoothGold);
   border-radius: 10px;
+  padding-bottom: 20px;
 }
 
 .card-img {
